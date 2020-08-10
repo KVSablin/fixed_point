@@ -41,3 +41,26 @@ constexpr decltype(auto) sqrt(const fixed_point<Fract, T>& X) {
 	Temp.value(Result);
 	return Temp;
 }
+
+template<class Integer, class = std::enable_if_t<std::is_integral_v<Integer>>>
+constexpr inline bool is_odd(const Integer X) noexcept {
+	return static_cast<bool>(X & static_cast<Integer>(1));
+}
+
+// Template function POW
+template<size_t Fract, class T>
+constexpr fixed_point<Fract,T> pow(fixed_point<Fract, T> X, int Y) noexcept {
+	if (Y < 0)
+		return pow((1 / X), -Y);
+
+	fixed_point<Fract, T> Result(1);
+	while (Y) {
+		if (is_odd(Y)){
+			Result *= X;
+			--Y;
+		}
+		X *= X;
+		Y >>= 1;
+	}
+	return Result;
+}

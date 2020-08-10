@@ -11,5 +11,8 @@ TEST(Math, Sqrt) {
 }
 
 TEST(Math, Pow) {
-	
+	ASSERT_EQ(pow(fixed_point<8>(4.0), -2), 0.0625);
+	ASSERT_EQ(pow(fixed_point<8>(2.0), 0), 1.0);
+	ASSERT_EQ(pow(fixed_point<8>(2.0), 2), 4.0);
+	ASSERT_EQ(pow(fixed_point<8>(7.5), 3), 421.875);
 }
